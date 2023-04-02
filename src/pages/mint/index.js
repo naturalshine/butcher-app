@@ -38,35 +38,6 @@ const Mint = () => {
         }
     }, [isConnected]);
 
-    useEffect(() =>{
-        console.log("TX HASH EFFECT")
-        setEthTx(txHash);
-        /*
-        
-        // mint polygon token
-        const polygonReturn = await mintPolygon(butcherReturn.data);
-        setPolygonTx(polygonReturn.polygonTokenId)
-
-        if (polygoneReturn.success){
-            setStatus(polygonReturn.status)
-        } else {
-            setStatus("Something went wrong! " + polygonReturn.status + "Polygon mint failed. However, we've already minted the Ethereum token, so all is good there... Redirecting...");
-        }
-
-        // save butchered image to context
-        let hash = metadata.ipfsImage.split(/[/]+/).pop();   
-        let normalisedImage = "https://butcher.infura-ipfs.io/ipfs/" + hash
-        let localImage = await fetchImage(normalisedImage);
-        if(localImage == undefined || localImage == null){
-            console.log("imageError");
-        } 
-        let imageObjectUrl = URL.createObjectURL(localImage);
-        setButcheredImage(imageObjectUrl);
-
-        // nav to next page
-        router.push('/butchered');
-        */
-    }, [txHash]);
 
     const { address } = useAccount();
 
@@ -81,7 +52,16 @@ const Mint = () => {
     const { ethTx, setEthTx } = useContext(ButcherContext);
     const { polygonTx, setPolygonTx } = useContext(ButcherContext);
 
+    const polygonMint = async function() {
 
+
+
+    }
+
+    useEffect(() =>{
+        console.log("TX HASH EFFECT")
+        setEthTx(txHash);        
+    }, [txHash]);
 
     //State variables
     const [status, setStatus] = useState('The Butcher is Done. Click to mint token and view the results.');
@@ -89,13 +69,9 @@ const Mint = () => {
 
     console.log("minting eth... ")
 
-    console.log("METADATA =>", metadata);
-
-    console.log("METADATA RH =>", metadata[0].royaltyHolder);
-
     const finalRoyalty = Math.trunc(metadata[0].royaltyAmount * 100)
-    console.log("FINAL ROYALTY =>", finalRoyalty)
-    console.log("setting up tx")
+    const tokenPrice = process.env.NEXT_PUBLIC_TOKEN_PRICE
+
 
     const {
         config,
@@ -135,7 +111,7 @@ const Mint = () => {
             functionName: 'mintWithRoyalty',
             args: [address, metadata[0].ipfsMetadata, metadata[0].royaltyHolder, finalRoyalty],
             overrides: {
-                value: ethers.utils.parseEther('0.0000000106')
+                value: ethers.utils.parseEther(tokenPrice)
             }
         })
 
@@ -153,12 +129,27 @@ const Mint = () => {
         if(isSuccess){
             console.log("TX DONE")
             txHash = data?.hash;
+
+            console.log("TOKEN ID? =>", data);
     
             console.log(txHash);
     
-    
             const etherscan = "https://goerli.etherscan.io/tx/" + txHash
             console.log("ETHERSCAN => ", etherscan)
+
+            // save butchered image to context
+            /*
+            let hash = metadata.ipfsImage.split(/[/]+/).pop();   
+            let normalisedImage = "https://butcher.infura-ipfs.io/ipfs/" + hash
+            let localImage = fetchImage(normalisedImage);
+            if(localImage == undefined || localImage == null){
+                console.log("imageError");
+            } 
+            let imageObjectUrl = URL.createObjectURL(localImage);
+            setButcheredImage(imageObjectUrl);
+
+            router.push('/butchered');
+            */
         }
 
 

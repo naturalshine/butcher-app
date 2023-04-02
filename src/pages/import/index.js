@@ -46,10 +46,9 @@ const Import = () => {
           let incomingMetadata = await retrieveMetadata(tokenContract, tokenId, chain);
           console.log("INCOMING METADATA = ", incomingMetadata);
           if(incomingMetadata.success){
-            console.log("SUCCESS")
             console.log("INCOMING METADATA . METADATA ", incomingMetadata.metadata[0]);
             setMetadata(incomingMetadata.metadata[0]);
-            console.log("METADATA => ", metadata);
+
             try{
               console.log(metadata.image)
               let localImage = await fetchImage(incomingMetadata.metadata[0].image);
