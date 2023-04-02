@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+@layer base {
+    @font-face {
+      font-family: Proxima Nova;
+      font-weight: 400;
+      src: url(/fonts/proxima-nova/400-regular.woff) format("woff");
+    }
+    @font-face {
+      font-family: Proxima Nova;
+      font-weight: 500;
+      src: url(/fonts/proxima-nova/500-medium.woff) format("woff");
+    }
+  }
+*/
+
+body{
+    background: #b22424;
+    color: #fff;
+}
+
+.navbar-nav a, .navbar-nav a:hover, .navbar-nav a:visited{
+    color: #ffff;
+}
+
+.connectKitContainer.container{
+    margin: 20px !important;
+}
+
+.connectKitContainer Button{
+    float: right;
+    margin: 20px !important;
+}
+
+.pageBody.container{
+    height: 80vh;
+}
+
+#index.pageBody h1 {
+    font-size: 8rem;
+    text-align:center;
+    margin: 50px;
+}
+
+.pageBody a,
+.pageBody a:hover, 
+.pageBody a:visited{
+    color: #fff;
+    text-decoration: underline;
+}
+
+#index.pageBody Button{
+    position: fixed;
+    transform: rotate(30deg);
+    transform-origin: right bottom;
+
+}
+
+#index.pageBody h1.slaughter {
+    margin: inherit;
+}
+
+#index.pageBody h1.slaughter a {
+    font-size: 10rem;
+    text-align: right;
+    position: fixed;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-120deg);
+    transform-origin: left top;
+}
+
+
+
+#index.pageBody h2{
+    font-size: 1.5rem;
+}
+
+#index.pageBody h3{
+    font-size: 1.5rem;
+    text-align: right;
+}
